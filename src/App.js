@@ -33,21 +33,32 @@ const Accordion = function ({ data }) {
           num={index}
           title={el.title}
           text={el.text}
-          key={el.title}
           curOpen={curOpen}
           onOpen={setCurOpen}
-        />
+        >
+          key={el.title}
+        </AccordionItem>
       ))}
+
+      <AccordionItem
+        num={13}
+        title="children prop"
+        key="children prop"
+        curOpen={curOpen}
+        onOpen={setCurOpen}
+      >
+        "children prop" Testing my knowledge on children prop
+      </AccordionItem>
     </div>
   );
 };
 
-const AccordionItem = function ({ num, title, text, curOpen, onOpen }) {
+const AccordionItem = function ({ num, title, curOpen, onOpen, children }) {
   const isOpen = num === curOpen;
 
   const handleToggle = function () {
     // setIsOpen(!isOpen);
-    onOpen(num);
+    onOpen(isOpen ? null : num);
   };
 
   return (
@@ -55,7 +66,7 @@ const AccordionItem = function ({ num, title, text, curOpen, onOpen }) {
       <p className="number">{num < 9 ? `0${num + 1}` : num + 1}</p>
       <p className="title">{title}</p>
       <p className="icon">{isOpen ? "-" : "+"}</p>
-      {isOpen && <div className="content-box">{text}</div>}
+      {isOpen && <div className="content-box">{children}</div>}
     </div>
   );
 };
